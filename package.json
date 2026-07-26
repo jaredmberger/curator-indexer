@@ -1,0 +1,13 @@
+{
+  "name": "curator-indexer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare Worker that builds the OceanLiners.net CuratorOS site index.",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}
