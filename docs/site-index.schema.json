@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oceanliners.net/curatoros/site-index.schema.json",
+  "title": "CuratorOS Site Index",
+  "type": "object",
+  "required": ["schema", "schemaVersion", "generator", "site", "generatedAt", "summary", "entities", "pages", "graphs", "errors"],
+  "properties": {
+    "schema": { "const": "https://oceanliners.net/curatoros/site-index.schema.json" },
+    "schemaVersion": { "const": "1.0" },
+    "generator": {
+      "type": "object",
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "const": "CuratorOS Core Indexer" },
+        "version": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "site": {
+      "type": "object",
+      "required": ["origin", "startUrl"],
+      "properties": {
+        "origin": { "type": "string", "format": "uri" },
+        "startUrl": { "type": "string", "format": "uri" }
+      },
+      "additionalProperties": true
+    },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "summary": { "type": "object", "additionalProperties": true },
+    "entities": {
+      "type": "object",
+      "required": ["ships"],
+      "properties": { "ships": { "type": "array", "items": { "type": "object" } } },
+      "additionalProperties": true
+    },
+    "pages": { "type": "array", "items": { "type": "object" } },
+    "graphs": {
+      "type": "object",
+      "required": ["internalLinks", "sourceLinks", "shipMentions", "unlinkedShipMentions"],
+      "properties": {
+        "internalLinks": { "type": "array", "items": { "type": "object" } },
+        "sourceLinks": { "type": "array", "items": { "type": "object" } },
+        "shipMentions": { "type": "array", "items": { "type": "object" } },
+        "unlinkedShipMentions": { "type": "array", "items": { "type": "object" } }
+      },
+      "additionalProperties": true
+    },
+    "errors": { "type": "array", "items": { "type": "object" } }
+  },
+  "additionalProperties": true
+}
