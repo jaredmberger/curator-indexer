@@ -1,4 +1,4 @@
-name = "curator-indexer"
+name = "curatoros-core-indexer"
 main = "src/index.js"
 compatibility_date = "2026-07-26"
 workers_dev = true
