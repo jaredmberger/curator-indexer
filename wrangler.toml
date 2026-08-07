@@ -1,7 +1,14 @@
 name = "curatoros-core-indexer"
-main = "src/entry.js"
+main = "src/entry-v1.1.js"
 compatibility_date = "2026-07-26"
 workers_dev = true
+
+[[kv_namespaces]]
+binding = "CURATOR_INDEXER_RECORDS"
+id = "cdc9a84c8b364dcd9361d670c8db26b5"
+
+[triggers]
+crons = ["7 * * * *"]
 
 [observability]
 enabled = true
