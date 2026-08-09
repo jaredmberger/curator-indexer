@@ -7,6 +7,10 @@ workers_dev = true
 binding = "CURATOR_INDEXER_RECORDS"
 id = "cdc9a84c8b364dcd9361d670c8db26b5"
 
+[[kv_namespaces]]
+binding = "CURATOR_ERROR_RECORDS"
+id = "447306da3a754b44830d2ac8608322c0"
+
 [triggers]
 crons = ["7 * * * *"]
 
