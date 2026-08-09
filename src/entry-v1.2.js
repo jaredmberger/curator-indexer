@@ -21,12 +21,13 @@ export default {
   },
 
   async scheduled(controller, env, ctx) {
-    const pending = [];
-    const captureCtx = { waitUntil(promise) { pending.push(Promise.resolve(promise)); } };
     ctx.waitUntil((async () => {
       try {
-        await base.scheduled(controller, env, captureCtx);
-        await Promise.all(pending);
+        const response = await base.fetch(new Request('https://indexer.internal/api/indexer-monitor', { method: 'POST' }), env, ctx);
+        if (!response.ok) {
+          const data = await response.json().catch(() => null);
+          throw new Error(data?.error || `Indexer monitor returned HTTP ${response.status}`);
+        }
         await reportSystemSuccess(env, {
           source: SOURCE,
           component: 'scheduled-monitor',
