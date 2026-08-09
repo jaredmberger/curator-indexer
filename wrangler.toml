@@ -1,5 +1,5 @@
 name = "curatoros-core-indexer"
-main = "src/entry-v1.1.js"
+main = "src/entry-v1.2.js"
 compatibility_date = "2026-07-26"
 workers_dev = true
 
