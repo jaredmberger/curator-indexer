@@ -1,7 +1,10 @@
 name = "curatoros-core-indexer"
-main = "src/entry-v1.2.js"
+main = "src/entry-v1.3.js"
 compatibility_date = "2026-07-26"
 workers_dev = true
+
+[build]
+command = "node scripts/write-build-meta.mjs"
 
 [[kv_namespaces]]
 binding = "CURATOR_INDEXER_RECORDS"
@@ -10,6 +13,9 @@ id = "cdc9a84c8b364dcd9361d670c8db26b5"
 [[kv_namespaces]]
 binding = "CURATOR_ERROR_RECORDS"
 id = "447306da3a754b44830d2ac8608322c0"
+
+[version_metadata]
+binding = "CF_VERSION_METADATA"
 
 [triggers]
 crons = ["7 * * * *"]
