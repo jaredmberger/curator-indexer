@@ -1,0 +1,8 @@
+import base from './entry-v1.2.js';
+import { BUILD_META } from '../generated/build-meta.js';
+const SERVICE='Curator Indexer',REPOSITORY='jaredmberger/curator-indexer',HEARTBEAT_KEY='heartbeat:curator-indexer:scheduled-monitor';
+export default{async fetch(request,env,ctx){const u=new URL(request.url);if(request.method==='GET'&&u.pathname==='/api/runtime')return json(runtime(env));if(request.method==='GET'&&u.pathname==='/api/ops-health')return json(await health(env));return base.fetch(request,env,ctx)},async scheduled(c,e,x){return base.scheduled(c,e,x)}};
+function runtime(env){const m=env.CF_VERSION_METADATA||{};return{ok:true,service:SERVICE,version:'1.3.0',repository:REPOSITORY,runtime:'cloudflare-workers',cloudflareVersion:{id:m.id||null,tag:m.tag||null,timestamp:m.timestamp||null},build:BUILD_META,observedAt:new Date().toISOString()}}
+async function health(env){const h=env.CURATOR_ERROR_RECORDS?await env.CURATOR_ERROR_RECORDS.get(HEARTBEAT_KEY,'json'):null;return fresh(h)}
+function fresh(h){const at=h?.at||null,maxAgeMinutes=Number(h?.maxAgeMinutes||180),ageMinutes=at?Math.floor((Date.now()-Date.parse(at))/60000):null,stale=ageMinutes==null?null:ageMinutes>maxAgeMinutes;return{ok:stale!==true,service:SERVICE,schedule:{cadence:'hourly',minute:7},lastSuccessAt:at,ageMinutes,maxAgeMinutes,stale,status:stale===true?'stale':at?'healthy':'unknown',heartbeat:h?{component:h.component||null,message:h.message||null}:null,checkedAt:new Date().toISOString()}}
+function json(v,s=200){return new Response(JSON.stringify(v,null,2),{status:s,headers:{'content-type':'application/json; charset=utf-8','cache-control':'no-store','access-control-allow-origin':'*'}})}
