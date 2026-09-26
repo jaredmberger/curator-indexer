@@ -30,3 +30,7 @@ The stable index contract is documented in [`docs/site-index.schema.json`](docs/
 6. Attach the custom domain `curator-indexer.oceanliners.net`.
 
 The dashboard is served at `/`; a lightweight status endpoint is available at `/api/status`.
+
+## Disaster recovery
+
+The complete primary `CURATOR_INDEXER_RECORDS` namespace can be exported through authenticated `GET /api/recovery-export`. Configure the Worker secret `RECOVERY_EXPORT_TOKEN`; the route remains disabled if the secret is absent. The shared `CURATOR_ERROR_RECORDS` namespace is intentionally excluded because its authoritative recovery export is owned by Error Bus. See [`RECOVERY_EXPORT.md`](RECOVERY_EXPORT.md).
